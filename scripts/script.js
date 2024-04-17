@@ -51,6 +51,6 @@ function Entrar() {
     }
 
     window.location.href = 'sucess.html';
-    document.getElementById('bem-vindo').innerHTML = "AAAAAAAAA";
+    document.getElementById('bem-vindo').innerText = "Bem vindo" + nome;
     return true;
 }
