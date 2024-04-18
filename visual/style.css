@@ -46,4 +46,5 @@
 
 #user-not-found, #user-wrong-password {
     display: none;
+    color: red;
 }

@@ -36,9 +36,14 @@ function checkPass(senha) {
 
 // Função chamada ao clicar no botão "Entrar"
 // Primeiramente ela checa se o nome do usuario NÃO EXISTE, com a função checkUser retornando o valor ao contrário (!checkUser), o mesmo processo segue com a função checkPass
+
+
+
 function Entrar() {
     let nome = document.getElementById('nome').value;
+    localStorage.setItem('nome', nome)
     let senha = document.getElementById('senha').value;
+    localStorage.setItem('senha', senha)
 
     if (!(checkUser(nome))) {
         document.getElementById('user-not-found').style.display='block';
@@ -51,6 +56,12 @@ function Entrar() {
     }
 
     window.location.href = 'sucess.html';
-    document.getElementById('bem-vindo').innerText = "Bem vindo" + nome;
     return true;
+}
+
+if (document.URL.includes("sucess.html")) {
+    let nome = localStorage.getItem('nome');
+    let senha = localStorage.getItem('senha');
+    document.getElementById("user").textContent = nome;
+    document.getElementById("password").textContent = senha;
 }
