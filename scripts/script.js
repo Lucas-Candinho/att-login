@@ -17,44 +17,52 @@ function checkUser(nome) {
     // Testa a variavel recebida "nome" com todos os elementos .nome do array
     for (let i = 0; i < users.length; i++) {
         if(nome == users[i].nome) {
-            return true;
+            return i; //retorna o index do usuário no array users
         }
     }
     return false;
 }
 
-// Essa função checa se a senha de um usuário existe
-function checkPass(senha) {
-    // Testa a variavel recebida "senha" com todos os elementos .senha do array
-    for (let i = 0; i < users.length; i++) {
-        if(senha == users[i].senha) {
-            return true;
-        }
+// Essa função checa se a senha de um usuário existe, tomando uma senha e o index do usuário no array users
+function checkPass(senha, user) {
+    if(users[user].senha == senha) {
+        return true;
     }
     return false;
+}
+
+// Essa função reseta os estilos das mensagens de erro no login
+function resetStyles() {
+    document.getElementById('user-not-found').style.display='none';
+    document.getElementById('user-wrong-password').style.display='none';
 }
 
 // Função chamada ao clicar no botão "Entrar"
 // Primeiramente ela checa se o nome do usuario NÃO EXISTE, com a função checkUser retornando o valor ao contrário (!checkUser), o mesmo processo segue com a função checkPass
 
-
-
 function Entrar() {
-    let nome = document.getElementById('nome').value;
-    localStorage.setItem('nome', nome)
-    let senha = document.getElementById('senha').value;
-    localStorage.setItem('senha', senha)
+    resetStyles();
 
-    if (!(checkUser(nome))) {
+    let nome = document.getElementById('nome').value;
+    localStorage.setItem('nome', nome); // Adiciona uma variável "Valor" para o armazenamento local, tendo uma "chave" como seu par.
+    let senha = document.getElementById('senha').value;
+    localStorage.setItem('senha', senha); 
+
+    // Checa se o nome do usuário existe no array users, retorna falso caso não esteja
+    // Soma 1 no caso do index do usuário for 0
+    if (!(checkUser(nome)+1)) {
         document.getElementById('user-not-found').style.display='block';
         return false;
     }
+    // A partir desse ponto, sabemos que o nome de usuário é válido
 
-    if (!(checkPass(senha))) {
+    // Checa se a senha digitada é a do usuário já validado, retorna falso caso não esteja
+    if (!(checkPass(senha, checkUser(nome)))) {
         document.getElementById('user-wrong-password').style.display='block';
         return false;
     }
 
+    // Troca para a tela de sucesso
     window.location.href = 'sucess.html';
     return true;
 }
