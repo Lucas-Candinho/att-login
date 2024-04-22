@@ -48,9 +48,7 @@ function Entrar() {
     let senha = document.getElementById('senha').value;
     localStorage.setItem('senha', senha); 
 
-    // Checa se o nome do usuário existe no array users, retorna falso caso não esteja
-    // Soma 1 no caso do index do usuário for 0
-    if (!(checkUser(nome)+1)) {
+    if ((typeof checkUser(nome) != "number")) {
         document.getElementById('user-not-found').style.display='block';
         return false;
     }
